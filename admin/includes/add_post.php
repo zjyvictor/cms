@@ -3,6 +3,7 @@
         $post_title = $_POST['post_title'];
         $post_category_id = $_POST['post_category_id'];
         $post_author = $_POST['post_author'];
+       // $post_user = $_POST['post_user'];
         $post_status = $_POST['post_status'];
 
         $post_image = $_FILES['image']['name'];
@@ -15,8 +16,18 @@
         $post_content = $_POST['post_content'];
         $post_date = date('d-m-y');
         $post_comment_count = 4;
+        $post_views_count = 2;
+        $post_user = "Daniel";
 
         move_uploaded_file($post_image_temp,"../images/$post_image");
+
+        $query = "INSERT INTO posts(post_category_id,post_title,post_author,post_user,post_date,post_image,post_content,post_tags,post_comment_count,post_status,post_views_count) ";
+
+        $query .= "VALUES ({$post_category_id},'{$post_title}','{$post_author}','{$post_user}',now(),'{$post_image}','{$post_content}','{$post_tags}','{$post_comment_count}','{$post_status}',{$post_views_count})";
+
+        $create_post_query = mysqli_query($conn,$query);
+
+        confirmQuery($create_post_query);
     }
 ?>
 
@@ -47,7 +58,7 @@
     </div>
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <input type="text" class="form-control" name="post_content">
+        <textarea type="text" class="form-control" name="post_content" id="" cols="30" rows="10"></textarea>
     </div>
     <div class="form-group">
        
