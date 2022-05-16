@@ -40,11 +40,24 @@
     </div>
     <div class="form-group">
         <label for="title">Post Image</label>
+        <img width="100" src="../images/<?php echo $post_image;?>">
         <input type="file" name="image">
     </div>
     <div class="form-group">
-        <label for="post_tags">Post Tags</label>
-        <input value="<?php echo $post_tags; ?>"  type="text" class="form-control" name="post_tags">
+        <label for="post_category">Post Category</label>
+        <select name="post_category" id="">
+    <?php
+        $query = "SELECT * FROM categories";
+        $select_category_by_id = mysqli_query($conn, $query);
+        confirmQuery($select_category_by_id);
+        while ($row = mysqli_fetch_assoc($select_category_by_id)) {
+            $cat_id = $row['cat_id'];
+            $cat_title = $row['cat_title'];
+
+            echo "<option value='{$cat_id}'>{$cat_title}</option>";
+        }
+    ?>
+        </select>
     </div>
     <div class="form-group">
         <label for="post_content">Post Content</label>
